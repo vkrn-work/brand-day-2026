@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Day 2026: памятка по залам</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F5F7;
+    --ink:#1C1F26;
+    --muted:#5E6472;
+    --line:#DCDFE5;
+    --or:#FF7A00; --or-ink:#A84B00; --or-bg:#FFEBD6;
+    --rd:#E11D2E; --rd-ink:#A3111F; --rd-bg:#FCE1E3;
+    --brk:#E7E9ED;
+    --rail:48px;
+    --gap:5px;
+    --display:'Unbounded', 'Onest', system-ui, sans-serif;
+    --text:'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:15px;line-height:1.4;-webkit-font-smoothing:antialiased}
+  button{font:inherit;color:inherit}
+  :focus-visible{outline:2.5px solid var(--ink);outline-offset:2px}
+
+  .wrap{max-width:980px;margin:0 auto;padding:0 10px}
+
+  /* ---------- Intro ---------- */
+  .intro{padding:22px 4px 14px}
+  .intro h1{font-family:var(--display);font-weight:700;font-size:clamp(22px,5.4vw,34px);line-height:1.08;letter-spacing:-.01em;margin:0 0 8px}
+  .intro p{margin:0;color:var(--muted);font-size:14px;max-width:60ch}
+
+  /* ---------- Sticky bar ---------- */
+  .bar{position:sticky;top:0;z-index:20;background:var(--paper);padding-top:8px}
+  .days{display:flex;gap:6px}
+  .day{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:7px 8px 8px;text-align:left;cursor:pointer;display:flex;align-items:baseline;gap:7px}
+  .day b{font-family:var(--display);font-weight:700;font-size:22px;line-height:1}
+  .day span{display:flex;flex-direction:column;font-size:12px;line-height:1.2;color:var(--muted);min-width:0}
+  .day span i{font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .day[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .day[aria-selected="true"] span{color:#C9CDD6}
+  .day .today{color:var(--or)}
+  .day[aria-selected="true"] .today{color:var(--or)}
+
+  .heads{display:grid;grid-template-columns:var(--rail) repeat(var(--cols),minmax(0,1fr));gap:var(--gap);padding:8px 0 6px;border-bottom:1px solid var(--line)}
+  .heads .t{font-size:11px;color:var(--muted);align-self:end;padding-left:2px}
+  .hall{border-radius:9px;padding:7px 9px;font-weight:700;font-size:14px;line-height:1.15}
+  .hall small{display:block;font-weight:500;font-size:11.5px;opacity:.85}
+  .hall.o{background:var(--or);color:var(--ink)}
+  .hall.r{background:var(--rd);color:#fff}
+
+  .nowpill{display:none;margin-left:auto;align-items:center;gap:6px;border:0;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:4px 10px 4px 8px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .nowpill.show{display:inline-flex}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--rd);box-shadow:0 0 0 0 rgba(225,29,46,.5);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(225,29,46,.45)}70%{box-shadow:0 0 0 7px rgba(225,29,46,0)}100%{box-shadow:0 0 0 0 rgba(225,29,46,0)}}
+  .subbar{display:flex;align-items:center;gap:8px;padding:8px 2px 0;font-size:12.5px;color:var(--muted);min-height:30px}
+
+  /* ---------- Grid ---------- */
+  .grid{display:grid;grid-template-columns:var(--rail) repeat(var(--cols),minmax(0,1fr));column-gap:var(--gap);row-gap:var(--gap);padding:8px 0 24px;position:relative}
+  .tm{grid-column:1;font-family:var(--display);font-weight:500;font-size:12.5px;line-height:1;padding-top:7px;font-variant-numeric:tabular-nums;color:var(--ink);position:relative;z-index:1}
+  .tm.cur{color:#fff}
+  .tm.cur::before{content:"";position:absolute;inset:2px -2px auto -4px;height:20px;background:var(--ink);border-radius:6px;z-index:-1}
+  .rl{grid-column:1/-1;align-self:start;height:1px;background:var(--line);margin-top:-3px;z-index:0}
+
+  .s{position:relative;z-index:1;border:0;border-radius:10px;padding:7px 9px 9px;text-align:left;cursor:pointer;min-width:0;display:flex;flex-direction:column;gap:3px;transition:transform .12s ease}
+  .s:active{transform:scale(.985)}
+  .s.o{background:var(--or-bg)}
+  .s.r{background:var(--rd-bg)}
+  .s .when{font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .s.o .when{color:var(--or-ink)}
+  .s.r .when{color:var(--rd-ink)}
+  .s .ttl{font-weight:600;font-size:13.5px;line-height:1.28;overflow-wrap:anywhere;hyphens:auto}
+  .s .who{font-size:12px;line-height:1.3;color:var(--muted);overflow-wrap:anywhere}
+  .s .who b{font-weight:600;color:var(--ink)}
+  .tag{font-size:10.5px;font-weight:600;border-radius:5px;padding:1px 5px;background:rgba(255,255,255,.75);color:var(--ink)}
+  .star{position:absolute;top:6px;right:7px;font-size:14px;line-height:1;color:var(--ink);display:none}
+  .s.fav .star{display:block}
+  .s.fav{box-shadow:inset 0 0 0 2px var(--ink)}
+  .s.misc .ttl{font-weight:500}
+
+  .s.both{background:repeating-linear-gradient(-45deg,var(--brk) 0 8px,#EEF0F3 8px 16px);align-items:center;justify-content:center;text-align:center;gap:1px;padding:8px 10px}
+  .s.both .ttl{font-weight:600;font-size:13.5px}
+  .s.both .who{font-size:12px}
+  .s.both .when{color:var(--muted)}
+
+  .gap{z-index:1;border:1.5px dashed var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:#9AA0AC;padding:4px;text-align:center;min-height:30px}
+
+  .s.past{opacity:.42}
+  .s.now{box-shadow:inset 0 0 0 2.5px var(--ink)}
+  .s.now.fav{box-shadow:inset 0 0 0 2.5px var(--ink)}
+  .nowtag{font-size:10.5px;font-weight:700;border-radius:5px;padding:1px 6px;background:var(--ink);color:#fff}
+
+  .single .s.o{min-height:64px}
+
+  /* ---------- Footer ---------- */
+  .foot{padding:6px 4px 40px;color:var(--muted);font-size:12.5px;line-height:1.5}
+  .foot a{color:var(--ink)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:10px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+
+  /* ---------- Sheet ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(28,31,38,.42);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s ease}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:86vh;overflow:auto;background:#fff;border-radius:18px 18px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom));transform:translateY(calc(100% + 40px));visibility:hidden;transition:transform .25s cubic-bezier(.2,.8,.2,1),visibility 0s linear .25s;max-width:640px;margin:0 auto}
+  .sheet.open{transform:none;visibility:visible;transition:transform .25s cubic-bezier(.2,.8,.2,1),visibility 0s}
+  .grab{width:38px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 12px}
+  .sh-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+  .chip{font-size:12px;font-weight:700;border-radius:7px;padding:3px 8px}
+  .chip.o{background:var(--or);color:var(--ink)}
+  .chip.r{background:var(--rd);color:#fff}
+  .chip.both{background:var(--brk);color:var(--ink)}
+  .sh-time{font-family:var(--display);font-weight:500;font-size:14px;font-variant-numeric:tabular-nums}
+  .x{margin-left:auto;border:0;background:var(--paper);width:34px;height:34px;border-radius:50%;font-size:18px;line-height:1;cursor:pointer}
+  .sheet h2{font-size:19px;line-height:1.25;margin:0 0 4px;font-weight:700}
+  .sheet .en{color:var(--muted);font-size:13.5px;margin:0 0 10px}
+  .sheet .about{margin:10px 0 0;font-size:14.5px;line-height:1.5;max-width:62ch}
+  .ppl{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
+  .ppl li{font-size:14px;line-height:1.35}
+  .ppl b{display:block;font-weight:600}
+  .ppl span{color:var(--muted);font-size:13px}
+  .ppl .lead{font-size:12px;color:var(--muted);margin-bottom:-4px}
+  .favbtn{margin-top:16px;width:100%;border:1.5px solid var(--ink);background:#fff;border-radius:12px;padding:11px 14px;font-weight:600;cursor:pointer}
+  .favbtn[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .par{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+  .par h3{font-size:13px;font-weight:600;color:var(--muted);margin:0 0 8px}
+  .par button{display:block;width:100%;text-align:left;border:0;border-radius:10px;padding:9px 11px;margin-bottom:6px;cursor:pointer}
+  .par button.o{background:var(--or-bg)}
+  .par button.r{background:var(--rd-bg)}
+  .par button.both{background:var(--brk)}
+  .par .pt{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+  .par button.o .pt{color:var(--or-ink)}
+  .par button.r .pt{color:var(--rd-ink)}
+  .par .pn{font-size:14px;font-weight:600;line-height:1.3}
+  .par .pw{font-size:12.5px;color:var(--muted)}
+
+  @media (min-width:700px){
+    :root{--rail:62px;--gap:8px}
+    .tm{font-size:14px}
+    .s .ttl{font-size:15px}
+    .s .who{font-size:13px}
+    .s .when{font-size:12.5px}
+    .hall{font-size:16px;padding:9px 12px}
+    .day b{font-size:26px}
+    .day span{font-size:13px}
+    .s .ttl{hyphens:manual}
+    .sheet{border-radius:18px;bottom:24px;left:12px;right:12px}
+  }
+  @media (max-width:360px){
+    :root{--rail:42px;--gap:4px}
+    .s{padding:6px 7px 8px}
+    .s .ttl{font-size:12.5px}
+    .s .who{font-size:11.5px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="intro">
+    <h1>Дни маркетинга, рекламы и брендинга</h1>
+    <p>Что идёт одновременно в Оранжевом и Красном залах. DoubleTree by Hilton, пр. Победителей, 9, Минск. Нажмите на выступление, чтобы открыть подробности.</p>
+  </header>
+
+  <div class="bar" id="bar">
+    <div class="days" role="tablist" aria-label="День форума" id="days"></div>
+    <div class="subbar"><span id="dayNote"></span><button class="nowpill" id="nowpill" type="button"><span class="dot" aria-hidden="true"></span><span id="nowtxt">Сейчас</span></button></div>
+    <div class="heads" id="heads"></div>
+  </div>
+
+  <main class="grid" id="grid" aria-live="polite"></main>
+
+  <footer class="foot">
+    <div class="legend">
+      <span><i class="sw" style="background:var(--or-bg)"></i>Оранжевый зал</span>
+      <span><i class="sw" style="background:var(--rd-bg)"></i>Красный зал</span>
+      <span><i class="sw" style="background:repeating-linear-gradient(-45deg,var(--brk) 0 4px,#EEF0F3 4px 8px)"></i>Общее для обоих залов</span>
+      <span><i class="sw" style="border:1.5px dashed var(--line)"></i>В зале пусто</span>
+    </div>
+    Программа взята с <a href="https://association.by/brand-day#program">association.by/brand-day</a> 4 ноября 2026 года. Организаторы предупреждают, что в программе возможны изменения. Отметки звёздочкой сохраняются только в этом браузере.
+  </footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle" aria-hidden="true" tabindex="-1">
+  <div class="grab" aria-hidden="true"></div>
+  <div id="shBody"></div>
+</section>
+
+<script>
+const HALL = {o:'Оранжевый зал', r:'Красный зал', both:'Оба зала'};
+
+const DAYS = [
+ {id:'nov4', date:'2026-11-04', num:'4', wd:'ср', mon:'ноября', note:'Среда, начало в 9:00', halls:['o','r'], items:[
+  {h:'both', s:'09:00', e:'10:00', k:'misc', t:'Аккредитация и приветственный кофе', sub:'PR-активности партнёров, нетворкинг'},
+  {h:'o', s:'10:00', e:'10:15', t:'Приветственное слово. Открытие форума', p:[['Алена Устинович','Председатель Правления Ассоциации коммуникационных и маркетинговых агентств Беларуси','АКМА Беларуси']]},
+  {h:'o', s:'10:15', e:'10:45', t:'Креатив — новая валюта бизнеса', p:[['Дмитрий Аполенис','креативный директор, Aida Pioneer (Беларусь)']], a:'Как идеи стали главным конкурентным преимуществом компаний.'},
+  {h:'o', s:'10:45', e:'11:30', t:'Искусство воплощать идеи в жизнь', en:'The Art of Making Things Happen', p:[['Ivan Bormaister','Executive Creative Director, FP7 McCann (ОАЭ)']], a:'Практический мастер-класс: как продвигать идею, собирать вокруг неё людей и доводить до результата, не дожидаясь идеального брифа, бюджета или момента.'},
+  {h:'o', s:'11:30', e:'12:00', t:'Как выигрывать полку в 2027 году', p:[['Виталий Яцкевич','управляющий партнёр, PG Branding (Беларусь/Польша)']], a:'Почему упаковка проигрывает за три секунды у полки и в крошечной карточке интернет-магазина и как сделать её самым эффективным медиа бренда.'},
+  {h:'o', s:'12:00', e:'12:30', t:'Как digital-кампания превратила преимущества HONOR X9d в серию медийных сообщений', p:[['Глеб Кизин','Deputy Director, FCBMINSK'],['Кристина Козлова','руководитель отдела маркетинга, HONOR']], a:'Пять факторов эффективного запуска нового смартфона.'},
+  {h:'o', s:'12:30', e:'13:00', t:'Это ADMA, а это МТкарта!', p:[['Екатерина Шибко','руководитель розничного направления управления маркетинга, МТбанк']], a:'Как «лапа гепарда» и «коты-пираты» стали драйвером запуска МТкарты.'},
+  {h:'both', s:'13:00', e:'14:00', k:'brk', t:'Кофе-брейк', sub:'Нетворкинг, PR-активности партнёров'},
+  {h:'o', s:'14:00', e:'14:30', t:'MIMIMI от Беллакт-Столица: как креатив и programmatic работают на запуск нового бренда', p:[['Анастасия Рыбакова','Account Director, NT Technology'],['Анастасия Зарудницкая','начальник отдела маркетинга, Беллакт-Столица']]},
+  {h:'o', s:'14:30', e:'15:00', t:'Эффективность. Инструкция по применению', p:[['Ирина Гуща','руководитель управления по маркетинг-сервису, Санта Импэкс']], a:'Как разделить роли медиа, retail media и PR, чтобы вложения работали и на ценность бренда, и на быструю отдачу.'},
+  {h:'o', s:'15:00', e:'15:50', k:'panel', t:'Пусть говорят. Блогеры и бренды на одном языке рекламы, контента и PR', mod:['Виталий Захаров','партнёр, креативный директор, агентство LUTA'], p:[['Ольга Жукова','директор по маркетингу, KFC'],['Екатерина Резанович','ведущий специалист PR, BREMOR'],['Светлана Волковец','директор по маркетингу, Oasis Belarus & Bobruisk Brewery'],['Татьяна Ермолкина','блогер, lifestyle'],['Евгений Буракевич','блогер, комик'],['Дарья Кастрик','блогер, travel и lifestyle']], a:'Открытый диалог FMCG-брендов и блогеров: где грань между охватами и реальной эффективностью и что сегодня определяет успех кампании.'},
+  {h:'o', s:'15:50', e:'16:00', k:'misc', t:'Розыгрыш подарков от партнёров'},
+  {h:'o', s:'16:00', e:'16:30', t:'Новое позиционирование Borjomi', p:[['Ирина Сташкевич','маркетинг-менеджер Borjomi, «Святой Источник», «Эдельвейс», Borjomi Belarus']], a:'Путь бренда от 1 января к каждому ужину в году.'},
+  {h:'o', s:'16:30', e:'17:00', t:'From Fear to Flow: как МТС закрывает цифровой разрыв между поколениями', p:[['Мария Канасевич','глава PR, МТС']], a:'Как системная работа с цифровой неуверенностью клиентов отражается на NPS и доверии.'},
+  {h:'o', s:'17:00', e:'17:30', t:'Агенты. Бренды. Жизнь', p:[['Виолетта Езерская','CMO, Сбер Банк']]},
+  {h:'o', s:'17:30', e:'18:00', t:'Зачем бренду стратегия, если всё равно всё поменяется через полгода', p:[['Андрей Григорьев','сопредседатель комитета по Digital Video Ad АРИР; сооснователь и CEO getads (Россия)','getads, АРИР (Россия)']]},
+  {h:'both', s:'18:00', e:'18:30', open:true, k:'misc', t:'Нетворкинг и розыгрыш подарков от партнёров'},
+
+  {h:'r', s:'10:15', e:'10:30', k:'misc', t:'Розыгрыш подарков от партнёров, нетворкинг'},
+  {h:'r', s:'10:30', e:'11:00', t:'За пределами страхового случая: как «А-Страхование» меняет ДНК рынка, заменяя драму выплаты жизненной силой', p:[['Александра Громова','директор, А-Страхование']], a:'Как новый бренд в Беларуси предлагает страхование как опору, а не только выплату после беды.'},
+  {h:'r', s:'11:00', e:'11:30', t:'Когда бренд упирается в потолок: как найти новые точки роста и переосмыслить позиционирование', p:[['Анастасия Арабей','Marketing Group Lead, Kufar']]},
+  {h:'r', s:'11:30', e:'12:00', t:'BTL 2.0: переход от поддержки продаж к формированию комьюнити через тактильный контент', p:[['Александра Ксензова','CEO, Bramble Studio']], a:'Эффективный BTL сегодня — это когда стикер бренда месяц спустя всё ещё на ноутбуке и о нём спрашивают коллеги.'},
+  {h:'r', s:'12:00', e:'13:00', online:true, t:'По ту сторону алгоритма. Теряем ли мы эмоции, создавая контент с ИИ? Может ли LLM понять природу чувств?', en:'Does Emotion Get Lost in AI Production?', p:[['Ergin Binyildiz','Founder, Untold (Турция)']], a:'Классическое производство или ИИ: стоит ли экономия потери аутентичности и по каким критериям выбирать.'},
+  {h:'r', s:'14:00', e:'14:30', t:'Осторожно, диджитал! Как технологии работают на креатив', p:[['Елизавета Мясина','PR & Marketing, iMedia Solution']], a:'Как связка дизайна, контента и IT-разработки превращает ограничения в нестандартные решения.'},
+  {h:'r', s:'14:30', e:'15:00', t:'ИИ не предлагать. Креативный конвейер без ИИ и агентства', p:[['Юлия Минец','коммерческий директор, Unistar']], a:'Как придумывать свежие идеи без ловушки шаблонности, и почему идеи без ИИ бывают ценнее.'},
+  {h:'r', s:'15:00', e:'15:15', t:'Myfin.by — эффективность и эффектность через внимательность к деталям', p:[['Сергей Аникушин','CEO, Myfin.by']], a:'Рекламные игры и неочевидные идеи в поиске верных клиентов.'},
+  {h:'r', s:'15:15', e:'15:30', t:'Выход за рамки болезни: рецепт на креатив в фармацевтическом маркетинге', p:[['Николай Данейко','ведущий специалист по проектам службы маркетинга, Фармлэнд']], a:'Как делать креатив при жёстких ограничениях фарм-рекламы.'},
+  {h:'r', s:'15:30', e:'16:00', t:'Кто на самом деле сидит в кресле маркетолога: чего бизнес ждёт от маркетинга и чего не получает', p:[['Егор Фарейторов','сооснователь и CMO, MSM-агентство SANQ']], a:'Разрыв между ожиданиями бизнеса и реальной ролью маркетолога, и как сделать его архитектором роста.'},
+  {h:'r', s:'16:00', e:'16:30', t:'OOH 2.0: один контакт — сквозная коммуникация', p:[['Анастасия Ивушкина','аккаунт-директор, Wunder Digital']], a:'Как контакт с билбордом запускает персональное продолжение рекламы в интернете.'},
+  {h:'r', s:'16:30', e:'17:00', t:'О продвижении изделий медицинской техники: бренды «Интеграл» и IN MEDICAL', p:[['Инна Федоткова','начальник отдела рекламы, Интеграл']], a:'Новое направление завода с 60-летней историей и сложности согласования медицинской рекламы.'},
+  {h:'r', s:'17:00', e:'17:30', t:'Трактор в эпоху digital. Как нестандартно попасть в сердце аудитории в 2026 году', p:[['Мария Томашевская','редактор спецпроектов, Realt']], a:'Спецпроект для Savlukov-Mebel: истории читателей, розыгрыш дивана и доставка на тракторе.'},
+  {h:'r', s:'17:30', e:'18:00', t:'Прозрачный ивент: как посчитать ROI', p:[['Максим Водчиц','сооснователь, ивент-платформа Edenkit']], a:'Какие бизнес-метрики выбрать для разных мероприятий и как их считать.'}
+ ]},
+
+ {id:'nov5', date:'2026-11-05', num:'5', wd:'чт', mon:'ноября', note:'Четверг, начало в 9:00', halls:['o','r'], items:[
+  {h:'both', s:'09:00', e:'09:30', k:'misc', t:'Аккредитация и приветственный кофе', sub:'PR-активности партнёров, нетворкинг'},
+  {h:'o', s:'09:30', e:'10:00', t:'Креатив с накопительным эффектом', p:[['Олег Зелинский','директор, студия limb']], a:'Как превратить отдельные идеи в долгосрочный капитал бренда.'},
+  {h:'o', s:'10:00', e:'10:30', t:'Обязательно ли шокировать, чтобы привлечь внимание?', p:[['Елена Камейша','директор по маркетингу, Морозпродукт']], a:'Кейс loventa: почему «просто вкусно» снова работает.'},
+  {h:'o', s:'10:30', e:'11:00', t:'Маркетинг спокойствия: как забота о детях формирует доверие к бренду у родителей', p:[['Анастасия Тагиль','Head of Marketing Communications, Life'],['Алена Богданович','Department Head: Product, Growth & Marketing Communications, Life']]},
+  {h:'o', s:'11:00', e:'11:30', t:'Эффективные способы продвижения 2027: как попадать в рекомендации ИИ-агентов', p:[['Анатолий Недашковский','CEO, Slivki.by']]},
+  {h:'o', s:'11:30', e:'12:00', t:'Будущее непредсказуемо, но это не точно', p:[['Илья Кухарев','креативный директор, getbob agency']], a:'Сколько запасных планов нужно, чтобы успешно провести рекламную кампанию от старта до финиша.'},
+  {h:'o', s:'12:00', e:'12:30', t:'Альфа Кухня. Вся правда про мерч', p:[['Наталья Суворова','директор по маркетингу и коммуникациям, Альфа Банк']]},
+  {h:'o', s:'12:30', e:'13:00', t:'Ловите момент, а не аудиторию: как выстроить рекламу от внимания до покупки', p:[['Сергей Казак','Chief Revenue Officer, AMDG Belarus']]},
+  {h:'both', s:'13:00', e:'14:00', k:'brk', t:'Кофе-брейк', sub:'Нетворкинг, PR-активности партнёров'},
+  {h:'o', s:'14:00', e:'14:30', t:'Ваш главный конкурент — «Я подумаю»', p:[['Анна Благополучная','руководитель отдела маркетинга, А-Лизинг']], a:'От сомнений клиента к маркетингу уверенности: почему убеждать сильнее нужно не всегда.'},
+  {h:'o', s:'14:30', e:'15:00', t:'Большая сила малых идей. Их влияние на восприятие и стратегии брендов', p:[['Вероника Писаренко','CEO, Forte'],['Ольга Якимчик','бренд-менеджер, МТС']]},
+  {h:'o', s:'15:00', e:'15:30', t:'Как сохранить себя в профессии: что делать, чтобы не потерять азарт, искру и интерес', p:[['Андрей Дансков','управляющий партнёр и креативный директор, GREAT (Россия)']], a:'Причины выгорания, якоря, которые удерживают в профессии, и баланс между амбициями и собственными ресурсами.'},
+  {h:'o', s:'15:30', e:'16:00', t:'«Бренд в истории» или «История в бренде»?', p:[['Павел Черненков','управляющий партнёр MEDIACREW; CEO агентства ORIGINAL PEOPLE','MEDIACREW, ORIGINAL PEOPLE']], a:'Что остаётся преимуществом, которое нельзя сгенерировать, если контент делается за минуту.'},
+  {h:'o', s:'16:00', e:'16:30', t:'50 оттенков… Как маркетинг создаёт привычки, которые создают рынок', p:[['Ольга Комлик','владелица ТМ sertsa и ресторана Bistro o\'Da; представитель Omron, Finetest и других брендов в Беларуси','sertsa, Bistro o\'Da']], a:'Что делать, если спроса нет до запуска: продавать новое поведение. Кейсы sertsa и других health-tech и wellness-брендов.'},
+  {h:'o', s:'16:30', e:'17:00', t:'Рекламная «Санта-Барбара»: коммуникационные и стратегические ошибки брендов', p:[['Виталий Захаров','партнёр, креативный директор, агентство LUTA'],['Ольга Ермакова','партнёр, директор по стратегии, агентство LUTA']], a:'Сценарии ошибок, их последствия и пути выхода.'},
+  {h:'o', s:'17:00', e:'17:30', t:'Нейроконтент 2.0: почему таланта больше недостаточно', p:[['Шерали Джурабаев','региональный управляющий директор, Sky CA/Tajikistan (Таджикистан)']]},
+  {h:'o', s:'17:30', e:'18:00', t:'Маркетинг в условиях ограничений. Чему алкогольная индустрия может научить FMCG-бренды', p:[['Алина Жук','начальник отдела стратегического маркетинга, Бульбашъ']]},
+  {h:'o', s:'18:00', e:'18:30', t:'Маркетинг — это баги мозга', p:[['Роман Сельченок','директор по маркетингу, БНБ-Банк']], a:'Как использовать когнитивные искажения системно, а не случайно.'},
+  {h:'both', s:'18:30', e:'19:00', open:true, k:'misc', t:'Бокал шампанского и нетворкинг'},
+
+  {h:'r', s:'10:00', e:'10:30', t:'PR-кейс в эпоху AI в Беларуси', p:[['Валентин Лопан','директор, «Агентство Деловых Связей»']], a:'На конкретном примере: что изменилось в PR, когда ИИ повсюду.'},
+  {h:'r', s:'10:30', e:'11:00', t:'Новая нейреальность. Метаморфозы', p:[['Иван Торопов','нейропродакшен-лид агентства ENDY; эксперт АБКР (Россия)','ENDY, АБКР (Россия)']], a:'Проблема «химер» в генеративном ИИ и создание миров для брендов.'},
+  {h:'r', s:'11:00', e:'11:30', t:'Рекламная коммуникация: не догнать, а деликатно встроиться', p:[['Денис Мацепуро','руководитель группы по работе с ключевыми клиентами, Яндекс Реклама']], a:'Как быть рядом с потребителем, не заваливая его рекламой.'},
+  {h:'r', s:'11:30', e:'12:00', online:true, t:'AI или мастерство человека: что и когда выбирать?', en:'AI or Human Craftsmanship? When to Use What', p:[['Mischa Schreuder','Executive Creative Director & Creative Partner, Fitzroy (Нидерланды)']], a:'На кейсах: когда брать ИИ, когда ручную работу мастера, а когда сочетать одно с другим.'},
+  {h:'r', s:'12:00', e:'12:30', online:true, t:'ИИ меняет рекламу, но победителей определяет контекст', en:'AI Is Changing Advertising, but Context Will Decide the Winners', p:[['Shreyas Sathe','CEO, Hybrid INSEA (Индия)']], a:'Преимущество смещается от количества контента к нужному сообщению в нужный момент и контекст.'},
+  {h:'r', s:'12:30', e:'13:00', online:true, t:'Продажи как основа эффективной рекламы', en:'Why Advertising People Forget How to Sell', p:[['Paul Rodríguez','Founder, Federer (Гватемала)']], a:'Почему без понимания того, как на самом деле продаётся продукт, реклама не даёт бизнес-результата.'},
+  {h:'r', s:'14:00', e:'14:30', t:'Эмоции, которые прилипают: как создать игрушки, которые нравятся детям и одобряют родители', p:[['Екатерина Бисерова','начальник управления развития и продвижения, Доброном']]},
+  {h:'r', s:'14:30', e:'15:00', t:'Эффект человека в эпоху AI', p:[['Инна Носович','креативный директор и совладелец, Brama Branding']], a:'Человеческое несовершенство как дефицит и двигатель сильных рекламных кампаний.'},
+  {h:'r', s:'15:00', e:'15:30', t:'Вау, и что дальше? Необычный мерч после первого впечатления', p:[['Ярослава Витун','коммерческий директор, ARTE (мерч и бизнес-подарки)']], a:'Почему за одним мерчем охотятся, а другой не берут даже бесплатно. Неожиданные коллаборации и польза для бренда.'},
+  {h:'r', s:'15:30', e:'16:00', t:'Лёгкая маркетинг-стратегия, или 4 шага к апгрейду бизнеса уже в этом квартале', p:[['Наталья Царикова','COO, SKYLINE']]},
+  {h:'r', s:'16:00', e:'16:30', t:'Охваты блогеров: как считать правильно и какие ошибки искажают результаты кампании', p:[['Иван Муравьёв','директор, Агентство Муравьёва']], a:'Показы против охвата, почему нельзя просто сложить Reels, посты и Stories, и какие метрики заложить ещё в бриф.'},
+  {h:'r', s:'16:30', e:'17:00', t:'Paritetbank: от обновления бренда до имиджевой кампании', p:[['Яна Гришкевич','начальник отдела продвижения, Paritetbank'],['Михаил Гребенчук','креатор, Aida Pioneer']], a:'Новый образ банка, идея имиджевой кампании и метрики эффективности.'},
+  {h:'r', s:'17:00', e:'17:30', t:'Контент-машина бренда: как выжимать максимум из каждой маркетинговой идеи', p:[['Алена Климаева','заместитель директора по маркетингу, Автоцентр ТОЧКА']]},
+  {h:'r', s:'17:30', e:'18:00', t:'Как успешно развивать бренд: эмпатия как новая валюта', p:[['Сергей Устинский','ведущий стратег, PG Branding']]}
+ ]},
+
+ {id:'nov6', date:'2026-11-06', num:'6', wd:'пт', mon:'церемония', note:'Пятница, вход по пригласительным Gold', halls:['o'], items:[
+  {h:'o', s:'16:00', e:'17:00', k:'misc', t:'Сбор участников, бокал шампанского, нетворкинг'},
+  {h:'o', s:'17:00', e:'19:00', open:true, t:'Церемония награждения ADMA AWARDS 2026 и фестиваля ЛАМА 2026', sub:'Гала-ужин и вручение наград', a:'Победители Премии эффективности маркетинга ADMA AWARDS 2026 и Фестиваля маркетинга и рекламы ЛАМА 2026. Вход по пригласительным Gold.'}
+ ]}
+];
+
+/* ---------- helpers ---------- */
+const m = t => { const [h,mm] = t.split(':').map(Number); return h*60+mm; };
+const fmt = n => `${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const key = (d,i) => `${d.id}|${i.h}|${i.s}`;
+const range = i => i.open ? `с ${fmt(m(i.s))}` : `${fmt(m(i.s))}–${fmt(m(i.e))}`;
+
+let favs = new Set();
+try { favs = new Set(JSON.parse(localStorage.getItem('bd26-favs') || '[]')); } catch(e) {}
+function saveFavs(){ try { localStorage.setItem('bd26-favs', JSON.stringify([...favs])); } catch(e) {} }
+
+function nowMinsk(){
+  if (window.__FAKE_NOW) return window.__FAKE_NOW;
+  try{
+    const p = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Minsk',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+    const g = k => (p.find(x => x.type === k) || {}).value;
+    return {date:`${g('year')}-${g('month')}-${g('day')}`, min: (+g('hour') % 24) * 60 + (+g('minute'))};
+  }catch(e){
+    const d = new Date(Date.now() + 3*3600e3);
+    return {date:d.toISOString().slice(0,10), min:d.getUTCHours()*60 + d.getUTCMinutes()};
+  }
+}
+
+/* ---------- render ---------- */
+const $ = id => document.getElementById(id);
+let cur = DAYS[0];
+
+function renderTabs(){
+  const now = nowMinsk();
+  $('days').innerHTML = DAYS.map(d => `
+    <button class="day" role="tab" type="button" id="tab-${d.id}" aria-controls="grid" aria-selected="${d===cur}" data-id="${d.id}">
+      <b>${d.num}</b><span><i>${d.mon}</i><i class="${now.date===d.date?'today':''}">${now.date===d.date?'сегодня':d.wd}</i></span>
+    </button>`).join('');
+  $('days').querySelectorAll('.day').forEach(b => b.onclick = () => select(b.dataset.id, true));
+}
+
+function renderHeads(){
+  const cols = cur.halls.length;
+  document.documentElement.style.setProperty('--cols', cols);
+  $('heads').innerHTML = `<div class="t">время</div>` + cur.halls.map(h =>
+    `<div class="hall ${h}">${HALL[h]}</div>`).join('');
+  $('dayNote').textContent = cur.note;
+}
+
+function renderGrid(){
+  const d = cur, halls = d.halls, cols = halls.length;
+  const B = [...new Set(d.items.flatMap(i => [m(i.s), m(i.e)]))].sort((a,b) => a-b);
+  const line = t => B.indexOf(t) + 1;
+  const g = $('grid');
+  g.className = 'grid' + (cols === 1 ? ' single' : '');
+  g.style.gridTemplateRows = `repeat(${B.length-1}, minmax(34px, auto))`;
+  let html = '';
+  for (let i = 0; i < B.length-1; i++){
+    html += `<div class="rl" style="grid-row:${i+1}"></div>`;
+    html += `<div class="tm" data-min="${B[i]}" style="grid-row:${i+1}">${fmt(B[i])}</div>`;
+  }
+  // coverage per hall to find empty stretches
+  const cov = halls.map(() => new Array(B.length-1).fill(false));
+  d.items.forEach((it, idx) => {
+    const r1 = line(m(it.s)), r2 = line(m(it.e));
+    const both = it.h === 'both';
+    const c1 = both ? 2 : 2 + halls.indexOf(it.h);
+    const span = both ? cols : 1;
+    for (let r = r1; r < r2; r++){
+      if (both) cov.forEach(c => c[r-1] = true); else cov[halls.indexOf(it.h)][r-1] = true;
+    }
+    const k = key(d, it);
+    const tags = [
+      it.online ? '<span class="tag">онлайн</span>' : '',
+      it.k === 'panel' ? '<span class="tag">дискуссия</span>' : '',
+    ].join('');
+    let who = '';
+    if (it.k === 'panel') {
+      who = `<div class="who">Модератор <b>${esc(it.mod[0])}</b> и ещё ${it.p.length} участников</div>`;
+    } else if (it.p) {
+      who = it.p.map(([n, r, o]) => `<div class="who"><b>${esc(n)}</b>, ${esc(o || shortOrg(r))}</div>`).join('');
+    } else if (it.sub) {
+      who = `<div class="who">${esc(it.sub)}</div>`;
+    }
+    const cls = ['s', it.h, it.k === 'misc' ? 'misc' : '', it.k === 'brk' ? 'misc' : '', favs.has(k) ? 'fav' : ''].join(' ');
+    html += `<button type="button" class="${cls}" data-idx="${idx}" data-s="${m(it.s)}" data-e="${m(it.e)}" style="grid-row:${r1}/${r2};grid-column:${c1}/span ${span}" aria-label="${esc(range(it) + ', ' + HALL[it.h] + ': ' + it.t)}">
+      <span class="star" aria-hidden="true">★</span>
+      <span class="when">${range(it)}${tags}</span>
+      <span class="ttl">${esc(it.t)}</span>
+      ${who}
+    </button>`;
+  });
+  // empty stretches
+  halls.forEach((h, ci) => {
+    let r = 0;
+    while (r < B.length-1){
+      if (cov[ci][r]) { r++; continue; }
+      let s = r; while (r < B.length-1 && !cov[ci][r]) r++;
+      html += `<div class="gap" style="grid-row:${s+1}/${r+1};grid-column:${2+ci}">в зале пусто</div>`;
+    }
+  });
+  g.innerHTML = html;
+  g.querySelectorAll('.s').forEach(b => b.onclick = () => openSheet(cur.items[+b.dataset.idx], b));
+  markNow();
+}
+
+// Company shown on the card: the part after the last comma of the role
+function shortOrg(role){
+  const parts = role.split(';').pop().split(',');
+  return parts[parts.length-1].trim();
+}
+
+function markNow(){
+  const now = nowMinsk();
+  const isToday = now.date === cur.date;
+  const g = $('grid');
+  let first = null;
+  g.querySelectorAll('.s').forEach(b => {
+    const s = +b.dataset.s, e = +b.dataset.e;
+    b.classList.remove('now','past');
+    b.querySelector('.nowtag')?.remove();
+    if (!isToday) return;
+    if (now.min >= e) b.classList.add('past');
+    else if (now.min >= s) {
+      b.classList.add('now');
+      b.querySelector('.when').insertAdjacentHTML('beforeend','<span class="nowtag">сейчас</span>');
+      if (!first) first = b;
+    }
+  });
+  g.querySelectorAll('.tm').forEach(t => t.classList.remove('cur'));
+  if (isToday) {
+    const tms = [...g.querySelectorAll('.tm')];
+    let c = null; tms.forEach(t => { if (+t.dataset.min <= now.min) c = t; });
+    const last = cur.items.reduce((a, i) => Math.max(a, m(i.e)), 0);
+    if (c && now.min < last) c.classList.add('cur');
+  }
+  const pill = $('nowpill');
+  const anyToday = DAYS.some(d => d.date === now.date);
+  if (anyToday) {
+    pill.classList.add('show');
+    $('nowtxt').textContent = isToday ? `Сейчас ${fmt(now.min)}` : 'К сегодняшнему дню';
+  } else pill.classList.remove('show');
+  return first;
+}
+
+function scrollToNow(smooth){
+  const now = nowMinsk();
+  const today = DAYS.find(d => d.date === now.date);
+  if (!today) return;
+  if (today !== cur) select(today.id, false);
+  const el = $('grid').querySelector('.s.now') || $('grid').querySelector('.tm.cur');
+  if (!el) return;
+  const barH = $('bar').getBoundingClientRect().height;
+  const y = el.getBoundingClientRect().top + window.scrollY - barH - 10;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({top: Math.max(0, y), behavior: smooth && !reduce ? 'smooth' : 'auto'});
+}
+$('nowpill').onclick = () => scrollToNow(true);
+
+function select(id, fromUser){
+  const d = DAYS.find(x => x.id === id) || DAYS[0];
+  cur = d;
+  renderTabs(); renderHeads(); renderGrid();
+  if (location.hash !== '#' + d.id) { try { history.replaceState(null, '', '#' + d.id); } catch(e) { location.hash = d.id; } }
+  if (fromUser) {
+    const top = $('bar').offsetTop;
+    if (window.scrollY > top) window.scrollTo({top});
+  }
+}
+
+/* ---------- sheet ---------- */
+let lastFocus = null;
+function overlaps(a, b){ return m(a.s) < m(b.e) && m(b.s) < m(a.e); }
+
+function openSheet(it, from){
+  lastFocus = from || document.activeElement;
+  const d = cur, k = key(d, it), isFav = favs.has(k);
+  const tags = [it.online ? 'Онлайн-мастер-класс' : '', it.k === 'panel' ? 'Дискуссия' : ''].filter(Boolean).join(', ');
+  let ppl = '';
+  if (it.mod) ppl += `<li class="lead">Модератор</li><li><b>${esc(it.mod[0])}</b><span>${esc(it.mod[1])}</span></li><li class="lead">Участники</li>`;
+  if (it.p) ppl += it.p.map(([n, r]) => `<li><b>${esc(n)}</b><span>${esc(r)}</span></li>`).join('');
+  let par = '';
+  if (it.h !== 'both' && d.halls.length > 1) {
+    const other = it.h === 'o' ? 'r' : 'o';
+    const list = d.items.filter(x => (x.h === other || x.h === 'both') && overlaps(x, it));
+    par = `<div class="par"><h3>В это же время: ${HALL[other]}</h3>` + (list.length ? list.map(x => {
+      const idx = d.items.indexOf(x);
+      const w = x.p ? x.p.map(p => p[0]).join(', ') : (x.sub || '');
+      return `<button type="button" class="${x.h}" data-idx="${idx}"><div class="pt">${range(x)}</div><div class="pn">${esc(x.t)}</div>${w ? `<div class="pw">${esc(w)}</div>` : ''}</button>`;
+    }).join('') : '<p class="pw" style="margin:0">В это время в зале ничего не идёт.</p>') + `</div>`;
+  }
+  const canFav = it.k !== 'brk';
+  $('shBody').innerHTML = `
+    <div class="sh-top"><span class="chip ${it.h}">${HALL[it.h]}</span><span class="sh-time">${range(it)}</span>${tags ? `<span class="tag" style="background:var(--paper)">${tags}</span>` : ''}<button class="x" type="button" id="shClose" aria-label="Закрыть">×</button></div>
+    <h2 id="shTitle">${esc(it.t)}</h2>
+    ${it.en ? `<p class="en">${esc(it.en)}</p>` : ''}
+    ${it.sub ? `<p class="en">${esc(it.sub)}</p>` : ''}
+    ${ppl ? `<ul class="ppl">${ppl}</ul>` : ''}
+    ${it.a ? `<p class="about">${esc(it.a)}</p>` : ''}
+    ${canFav ? `<button class="favbtn" type="button" id="favBtn" aria-pressed="${isFav}">${isFav ? '★ Отмечено, хочу пойти' : '☆ Отметить: хочу пойти'}</button>` : ''}
+    ${par}`;
+  $('shClose').onclick = closeSheet;
+  const fb = $('favBtn');
+  if (fb) fb.onclick = () => {
+    if (favs.has(k)) favs.delete(k); else favs.add(k);
+    saveFavs();
+    const on = favs.has(k);
+    fb.setAttribute('aria-pressed', on);
+    fb.textContent = on ? '★ Отмечено, хочу пойти' : '☆ Отметить: хочу пойти';
+    const card = $('grid').querySelector(`.s[data-idx="${d.items.indexOf(it)}"]`);
+    if (card) card.classList.toggle('fav', on);
+  };
+  $('shBody').querySelectorAll('.par button').forEach(b => b.onclick = () => {
+    const idx = +b.dataset.idx;
+    openSheet(d.items[idx], $('grid').querySelector(`.s[data-idx="${idx}"]`));
+  });
+  $('sheet').classList.add('open'); $('scrim').classList.add('open');
+  $('sheet').setAttribute('aria-hidden','false');
+  $('sheet').scrollTop = 0;
+  $('shClose').focus({preventScroll:true});
+}
+function closeSheet(){
+  $('sheet').classList.remove('open'); $('scrim').classList.remove('open');
+  $('sheet').setAttribute('aria-hidden','true');
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus({preventScroll:true});
+}
+$('scrim').onclick = closeSheet;
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('sheet').classList.contains('open')) closeSheet();
+  if (e.key === 'Tab' && $('sheet').classList.contains('open')) {
+    const f = [...$('sheet').querySelectorAll('button')];
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length-1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length-1]) { e.preventDefault(); f[0].focus(); }
+  }
+});
+
+/* ---------- start ---------- */
+(function start(){
+  const h = location.hash.replace('#','');
+  const now = nowMinsk();
+  const today = DAYS.find(d => d.date === now.date);
+  const fromHash = DAYS.find(d => d.id === h);
+  select((fromHash || today || DAYS[0]).id, false);
+  if (today && today === cur) requestAnimationFrame(() => scrollToNow(false));
+  window.addEventListener('hashchange', () => {
+    const id = location.hash.replace('#','');
+    if (DAYS.some(d => d.id === id) && id !== cur.id) select(id, true);
+  });
+  setInterval(() => { renderTabs(); markNow(); }, 60000);
+})();
+</script>
+</body>
+</html>
